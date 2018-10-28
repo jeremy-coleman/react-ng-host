@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "rootDir": "./src",
+        "outDir": "./dist",
+        "sourceMap": true,
+        "noImplicitAny": false,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "target": "es5",
+        "jsx": "react",
+        "allowJs": true,
+        "experimentalDecorators": true,
+        "baseUrl": "./src",
+        "paths": {"package.json": ["../package.json"]},
+        "lib": ["dom","es5","scripthost","es2017"],
+        "skipDefaultLibCheck": true,
+        "skipLibCheck": true
+    },
+    "include": ["src"],
+    "exclude": ["node_modules"]
+}
