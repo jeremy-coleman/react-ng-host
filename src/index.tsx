@@ -5,7 +5,6 @@ import * as ReactDOM from "react-dom";
 
 import "./style.css";
 
-
 import NgSimple from "./NgSimple";
 
 ReactDOM.render(<NgSimple/>,document.getElementById("root"));
