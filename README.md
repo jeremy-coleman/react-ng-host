@@ -1,1 +1,1 @@
-# @coglite/ng-sample-app
+# angular inside react
