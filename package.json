@@ -1,56 +1,48 @@
 {
-  "name": "@coglite/ng-app",
-  "description": "just a demo",
+  "name": "react-angular-widget-demo",
+  "description": "rendering angular forms inside react",
   "version": "0.0.1",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "start": "react-scripts-ts start",
+    "build": "cross-env NODE_ENV=production react-scripts-ts build",
     "clean": "node task/clean.js",
-    "start": "webpack-dev-server --open",
-    "build:applications": "webpack",
-    "build-watch": "webpack --progress --watch",
-    "build-watch-mock": "webpack --progress --watch --env.configName=mock",
-    "test": "jest"
+    "serve": "serve -s build"
   },
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-	  "react":"16.6.0",
-    "react-dom":"16.6.0",
-    "mobx":"5.5.2",
-    "mobx-react":"5.3.6",
-    "mobx-utils":"5.0.4",
-		"core-js": "2.5.7",
-		"lodash-es":"4.17.11",
-    "@phosphor/widgets":"1.6.0",
-    "@angular/common": "7.0.1",
-    "@angular/compiler": "7.0.1",
-    "@angular/core": "7.0.1",
-    "@angular/forms": "7.0.1",
-    "@angular/platform-browser": "7.0.1",
-    "@angular/platform-browser-dynamic": "7.0.1",
-    "reflect-metadata":"0.1.12",
+    "react": "16.7.0-alpha.2",
+    "react-dom": "16.7.0-alpha.2",
+    "mobx": "5.7.0",
+    "mobx-react": "5.4.2",
+    "mobx-utils": "5.1.0",
+    "core-js": "2.5.7",
+    "lodash-es": "4.17.11",
+    "@angular/common": "7.1.3",
+    "@angular/compiler": "7.1.3",
+    "@angular/core": "7.1.3",
+    "@angular/forms": "7.1.3",
+    "@angular/platform-browser": "7.1.3",
+    "@angular/platform-browser-dynamic": "7.1.3",
     "rxjs": "6.3.3",
-    "zone.js": "0.8.26"
+    "zone.js": "0.8.26",
+    "@abraham/reflection": "0.4.2"
   },
   "devDependencies": {
-    "@types/lodash-es":"4.17.1",
-    "@types/react-dom":"16.0.9",
-    "@types/prop-types":"15.5.6",
-		"@types/react": "16.4.18",
-    "file-loader": "2.0.0",
-    "copy-webpack-plugin": "4.5.4",
-    "css-loader": "1.0.0",
-    "del": "3.0.0",
-    "html-webpack-plugin": "3.2.0",
-    "source-map-loader": "0.2.4",
-    "style-loader": "0.23.1",
-    "ts-loader": "5.2.2",
-    "typescript": "3.1.3",
-    "webpack": "4.23.1",
-    "webpack-cli": "3.1.2",
-    "webpack-dev-server": "3.1.10",
-    "write-file-webpack-plugin": "4.4.1"
-  }
+    "@types/lodash-es": "4.17.1",
+    "@types/react-dom": "16.0.11",
+    "@types/prop-types": "15.5.8",
+    "@types/react": "16.7.18",
+    "react-scripts-ts": "4.0.8",
+    "typescript": "3.2.2"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

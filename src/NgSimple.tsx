@@ -1,55 +1,59 @@
-import {Widget} from '@phosphor/widgets';
+import {Widget} from './widgets';
 import * as React from 'react';
 
+import {AngularContentWidget} from './module/content-widget';
 
-import AngularContentWidget from './module/content-widget';
-
-
-import {observable, action} from 'mobx'
+import {observable, action, computed} from 'mobx'
 import {observer} from 'mobx-react'
 
-
-let defaultStyle = observable({color: 'green'})
-
-let changeColor = action((input: string) => {
-      return defaultStyle.color = input
-  }
-)
 
 
 @observer
 class NgSimple extends React.Component<any, any> {
+containerRef = React.createRef<HTMLDivElement>()
 
-    private _containerRef : HTMLDivElement;
-    private _onContainerRef = (ref : HTMLDivElement) => {
-        this._containerRef = ref;
-    }
+widgetColor = observable({color: 'green'})
+
+changeColor = action((input: string) => this.widgetColor.color = input)
+
+nextColor = observable({color: 'red'})
+
 
     componentDidMount() {
-        if(this._containerRef) {
+        if(this.containerRef.current) {
           return this._main();
         }
     }
-    componentWillUnmount() {
-        
+    componentWillUnmount() {}
+
+
+
+    _main() {
+        let ng = new AngularContentWidget(this.widgetColor)
+        let ng2 = new AngularContentWidget({message: 'overriding all props', color: 'yellow'});
+        Widget.attach(ng, this.containerRef.current);
+        Widget.attach(ng2, this.containerRef.current);
     }
 
-    private _main() {
-        let ng = new AngularContentWidget(defaultStyle);
-        let ng2 = new AngularContentWidget({message: 'overriding all props', color: 'yellow'});
-         Widget.attach(ng, this._containerRef);
-         Widget.attach(ng2, this._containerRef);
+   createWidget() {
+        Widget.attach(new AngularContentWidget(this.widgetColor), this.containerRef.current);
     }
 
     render() {
         return (
-            <div>
-            <div style={{minHeight: '100vh'}} ref={this._onContainerRef}></div>
+            <div style={{overflowY: 'scroll'}}>
+            <div style={{minHeight: '100vh'}} ref={this.containerRef}>
+            </div>
             <button
                 style={{position: 'absolute', bottom: 0, height: '300px', width: '300px', background: 'purple'}}
-                onClick={() => changeColor('red')}
+                onClick={() => {
+                    this.changeColor(this.nextColor.color),
+                    this.createWidget()
+                    }
+                }
             >
-                {'click me'}
+                {`click me to attach a ${this.nextColor.color} widget`}
+                
             </button>
             </div>
         );

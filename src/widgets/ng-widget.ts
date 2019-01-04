@@ -5,7 +5,7 @@ import 'zone.js/dist/zone';
 import { ApplicationRef, ComponentFactoryResolver, ComponentRef, Injector, NgModuleRef, NgZone, Type } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { PromiseDelegate } from './promise-delegate';
-import { Widget } from '@phosphor/widgets';
+import { Widget } from './widget';
 
 
 export class AngularLoader<M> {
@@ -40,7 +40,7 @@ export class AngularWidget<C, M> extends Widget {
   componentInstance: C;
   componentReady = new PromiseDelegate<void>();
 
-  constructor(ngComponent: Type<C>, ngModule: Type<M>, options?: Widget.IOptions) {
+  constructor(ngComponent: Type<C>, ngModule: Type<M>, options?: any) { //Widget.IOptions
     super(options);
     platformBrowserDynamic().bootstrapModule(ngModule)
     .then(ngModuleRef => {
@@ -62,8 +62,10 @@ export class AngularWidget<C, M> extends Widget {
 }
 
 
+
+
 /**
- * Bootstraps a root Angular component into a JupyterLab/Phosphor Widget.
+ * Bootstraps a root Angular component into a div Element.
  * 
  * Key properties on the AngularWidget are `componentInstance` and 
  * `componentReady`.

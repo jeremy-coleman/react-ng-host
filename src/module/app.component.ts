@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 
+
+//colour is conditional and isnt ref'd in the react / widget implementation so its not gonna be in the dom
+
 @Component({
   selector: 'main',
   template: `

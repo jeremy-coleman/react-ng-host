@@ -4,71 +4,59 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const WriteFilePlugin = require("write-file-webpack-plugin");
 
-const isNodeModuleFile = (filename) => {
-    return filename.indexOf("node_modules") >= 0;
+
+
+const ROOT = path.resolve(__dirname);
+const getRoot = path.join.bind(path, ROOT);
+
+//Html-webpack-plugin configuration
+const indexConfig = {
+    template: getRoot('src/index.template.ts'),
+    //template: getRoot('src/app/index.hbs'),
+    //excludeChunks: ['electron or server'],
+    //baseHref: dev ? '/' : './',
+    baseHref: './',
+    chunksSortMode: (chunk1, chunk2) => {
+        //let orders = ['corejs', 'zonejs', 'app'];
+        let orders = ['zonejs', 'app'];
+        return orders.indexOf(chunk1.names[0]) - orders.indexOf(chunk2.names[0]);
+    }
 };
 
-const isTSFile = (filename) => {
-    return filename.endsWith(".ts") || filename.endsWith(".tsx");
-};
 
-const isJSFile = (filename) => {
-    return filename.endsWith(".js") || filename.endsWith(".jsx");
-};
+const isNodeModuleFile = (filename) => filename.indexOf("node_modules") >= 0;
 
-const isCssFile = (filename) => {
-    return filename.endsWith(".css");
-};
+const isTSFile = (filename) => filename.endsWith(".ts") || filename.endsWith(".tsx");
 
-const isSassFile = (filename) => {
-    return filename.endsWith(".scss");
-};
+const isJSFile = (filename) => filename.endsWith(".js") || filename.endsWith(".jsx");
 
-const isWoffFile = (filename) => {
-    return filename.endsWith(".woff");
-};
+const isCssFile = (filename) => filename.endsWith(".css");
 
-const isWoff2File = (filename) => {
-    return filename.endsWith(".woff2");
-}
+const isSassFile = (filename) => filename.endsWith(".scss");
 
-const isSvgFontFile = (filename) => {
-    return filename.endsWith(".font.svg");
-};
+const isWoffFile = (filename) => filename.endsWith(".woff");
 
-const isTrueTypeFontFile = (filename) => {
-    return filename.endsWith(".ttf");
-};
+const isWoff2File = (filename) => filename.endsWith(".woff2");
 
-const isEOTFontFile = (filename) => {
-    return filename.endsWith(".eot");
-}
+const isSvgFontFile = (filename) => filename.endsWith(".font.svg");
+const isTrueTypeFontFile = (filename) => filename.endsWith(".ttf");
+
+const isEOTFontFile = (filename) => filename.endsWith(".eot");
 
 const isFontFile = (filename) => {
     return isWoffFile(filename) || isWoff2File(filename) || isSvgFontFile(filename) || isTrueTypeFontFile(filename) || isEOTFontFile(filename);
-};
-
-const isJSONFile = (filename) => {
-    return filename.endsWith(".json");
-};
-
-const isPNGFile = (filename) => {
-    return filename.endsWith(".png");
-};
-
-const isJPGFile = (filename) => {
-    return filename.endsWith(".jpg");
-};
-
-const isGIFFile = (filename) => {
-    return filename.endsWith(".gif");
 }
 
-const isImageFile = (filename) => {
-    return isPNGFile(filename) || isJPGFile(filename) || isGIFFile(filename);
-};
+const isJSONFile = (filename) => filename.endsWith(".json");
+const isPNGFile = (filename) =>filename.endsWith(".png");
 
-const defaultPublicPath = "/";;
+const isJPGFile = (filename) => filename.endsWith(".jpg");
+
+const isGIFFile = (filename) => filename.endsWith(".gif");
+
+const isImageFile = (filename) => isPNGFile(filename) || isJPGFile(filename) || isGIFFile(filename);
+
+const defaultPublicPath = "/";
 
 const createConfig = (env) => {
     const publicPath = env && env.publicPath ? env.publicPath : defaultPublicPath;
@@ -87,7 +75,9 @@ const createConfig = (env) => {
 
     const config = {
         mode: production ? "production" : "development",
+        
         entry: {
+            
             main: "./src/main.tsx"
         },
         output: {
@@ -146,15 +136,14 @@ const createConfig = (env) => {
             historyApiFallback: true
         },
         plugins: [
+            new webpack.ContextReplacementPlugin(/angular([\\\/])core([\\\/])/, path.resolve(getRoot('src'))),
             new HtmlWebpackPlugin({
-                title: "Phosphor Sample",
+                title: "Ngsx? Sample",
                 template: "src/index.template.ts",
                 AppConfig: AppConfig,
                 chunksSortMode: "none"
             }),
-            new CopyWebpackPlugin([
-                { from: "node_modules/@phosphor/widgets/style", to: "css/phosphor" }
-            ]),
+           // new CopyWebpackPlugin([{ from: "node_modules/@phosphor/widgets/style", to: "css/phosphor" }]),
             new WriteFilePlugin()
         ]
     };

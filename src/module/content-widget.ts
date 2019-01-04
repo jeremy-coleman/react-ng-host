@@ -1,10 +1,6 @@
-import '../styles/index.css';
-
-import { AngularWidget } from '../ng-widget/ng-widget';
+import { AngularWidget } from '../widgets';
 import { AppComponent } from './app.component';
 import { AppModule } from './app.module';
-
-import * as _ from 'lodash'
 
 class AngularContentWidget extends AngularWidget<AppComponent, AppModule> {
   static createNode(): HTMLElement {
@@ -30,7 +26,7 @@ class AngularContentWidget extends AngularWidget<AppComponent, AppModule> {
         this.addClass('content');
         //console.log(`'ORIGINAL NG PROPS' ${JSON.stringify(this.componentInstance)}`)
         
-      //this works, now map all of them automatically
+      //this works, now need to map all of them automatically[done with spread merge]
        //this.componentInstance.colour = ngProps.color
       
      let p = { ...this.componentInstance, ...ngProps}
@@ -56,30 +52,7 @@ class AngularContentWidget extends AngularWidget<AppComponent, AppModule> {
 export { AngularContentWidget}
 export default AngularContentWidget
 
-      // Any change to the component needs to be run within ngZone in order
-      // to activate Angular's change detection
+// Any change to the component needs to be run within ngZone in order
+// to activate Angular's change detection
 
-// function main(): void {
-//   let r1 = new AngularContentWidget('Red');
-//   let b1 = new AngularContentWidget('Blue');
-//   let g1 = new AngularContentWidget('Green');
-//   let y1 = new AngularContentWidget('Yellow');
-
-//   let r2 = new AngularContentWidget('Red');
-//   let b2 = new AngularContentWidget('Blue');
-
-//   let dock = new DockPanel();
-//   dock.addWidget(r1);
-//   dock.addWidget(b1, { mode: 'split-right', ref: r1 });
-//   dock.addWidget(y1, { mode: 'split-bottom', ref: b1 });
-//   dock.addWidget(g1, { mode: 'split-left', ref: y1 });
-//   dock.addWidget(r2, { ref: b1 });
-//   dock.addWidget(b2, { mode: 'split-right', ref: y1 });
-//   dock.id = 'dock';
-
-//   window.onresize = () => { dock.update(); };
-//   Widget.attach(dock, document.body);
-// }
-
-
-// window.onload = main;
+// u can skip react all together and just use this as function main() and then window.onload = main;
